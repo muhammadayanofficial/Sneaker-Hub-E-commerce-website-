@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sneaker Hub | Order Confirmed
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="success-page">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <span class="success-label">
+            ORDER CONFIRMED
+        </span>
+
+        <h1>
+            Thank You, {{ name }}!
+        </h1>
+
+        <p>
+            Your sneaker order has been successfully placed.
+        </p>
+
+
+        <div class="success-card">
+
+            <div class="success-row">
+                <span>Customer</span>
+                <strong>{{ name }}</strong>
+            </div>
+
+            <div class="success-row">
+                <span>Phone</span>
+                <strong>{{ phone }}</strong>
+            </div>
+
+            <div class="success-row">
+                <span>Address</span>
+                <strong>{{ address }}</strong>
+            </div>
+
+            <div class="success-row">
+                <span>City</span>
+                <strong>{{ city }}</strong>
+            </div>
+
+            <div class="success-row">
+                <span>Payment</span>
+                <strong>Cash on Delivery</strong>
+            </div>
+
+            <hr>
+
+            <div class="success-total">
+                <span>Order Total</span>
+                <strong>Rs. {{ total }}</strong>
+            </div>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('products') }}"
+            class="premium-btn"
+        >
+            Continue Shopping →
+        </a>
+
+        <a
+            href="{{ url_for('home') }}"
+            class="secondary-btn"
+        >
+            Back to Home
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

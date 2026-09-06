@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sneaker Hub | Checkout
+{% endblock %}
+
+{% block content %}
+
+<div class="checkout-page">
+
+    <div class="checkout-header">
+
+        <div>
+            <span>FINAL STEP</span>
+            <h1>Complete Your Order.</h1>
+            <p>Almost there. Tell us where to deliver your sneakers.</p>
+        </div>
+
+        <div class="checkout-step">
+            03
+            <small>CHECKOUT</small>
+        </div>
+
+    </div>
+
+
+    <div class="checkout-layout">
+
+
+        <!-- LEFT SIDE -->
+        <div class="checkout-form-box">
+
+            <div class="form-title">
+
+                <span>01</span>
+
+                <div>
+                    <h2>Delivery Information</h2>
+                    <p>Enter your delivery details below.</p>
+                </div>
+
+            </div>
+
+
+            <!-- IMPORTANT: FORM FIX -->
+            <form
+                action="{{ url_for('place_order') }}"
+                method="POST"
+            >
+
+                <div class="form-row">
+
+                    <div class="premium-field">
+
+                        <label>Full Name</label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="premium-field">
+
+                        <label>Phone Number</label>
+
+                        <input
+                            type="tel"
+                            name="phone"
+                            placeholder="03XX XXXXXXX"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="premium-field">
+
+                    <label>Delivery Address</label>
+
+                    <textarea
+                        name="address"
+                        rows="4"
+                        placeholder="House number, street, area..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <div class="premium-field">
+
+                    <label>City</label>
+
+                    <input
+                        type="text"
+                        name="city"
+                        placeholder="Your city"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PAYMENT -->
+
+                <div class="payment-section">
+
+                    <div class="form-title">
+
+                        <span>02</span>
+
+                        <div>
+                            <h2>Payment Method</h2>
+                            <p>Choose your preferred payment option.</p>
+                        </div>
+
+                    </div>
+
+
+                    <label class="payment-card">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="Cash on Delivery"
+                            checked
+                        >
+
+                        <div>
+
+                            <strong>
+                                Cash on Delivery
+                            </strong>
+
+                            <small>
+                                Pay when your sneakers arrive.
+                            </small>
+
+                        </div>
+
+                        <b>💵</b>
+
+                    </label>
+
+                </div>
+
+
+                <!-- PLACE ORDER -->
+
+                <button
+                    type="submit"
+                    class="place-order-btn"
+                >
+                    Place Order →
+                </button>
+
+
+            </form>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="checkout-order">
+
+            <span>YOUR ORDER</span>
+
+            <h2>Order Summary</h2>
+
+
+            {% for item in cart_items %}
+
+            <div class="checkout-product">
+
+                <div class="checkout-product-image">
+
+                    <img
+                        src="{{ url_for('static', filename='images/' + item.image) }}"
+                        alt="{{ item.name }}"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        {{ item.name }}
+                    </strong>
+
+                    <small>
+                        Qty: {{ item.quantity }}
+                    </small>
+
+                </div>
+
+
+                <b>
+                    Rs. {{ "{:,}".format(item.price * item.quantity) }}
+                </b>
+
+            </div>
+
+            {% endfor %}
+
+
+            <div class="checkout-divider"></div>
+
+
+            <div class="checkout-total-line">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong>
+                    Rs. {{ "{:,}".format(total) }}
+                </strong>
+
+            </div>
+
+
+            <div class="checkout-total-line">
+
+                <span>
+                    Delivery
+                </span>
+
+                <strong class="free-text">
+                    FREE
+                </strong>
+
+            </div>
+
+
+            <div class="checkout-grand-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong>
+                    Rs. {{ "{:,}".format(total) }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

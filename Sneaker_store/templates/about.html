@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sneaker Hub | About
+{% endblock %}
+
+{% block content %}
+
+<div class="about-page">
+
+    <!-- =========================
+         ABOUT HERO
+    ========================== -->
+
+    <section class="about-hero">
+
+        <div class="about-hero-inner">
+
+            <span class="about-label">
+                ABOUT SNEAKER HUB
+            </span>
+
+            <h1>
+                Built for people
+                <br>
+                <span>who move different.</span>
+            </h1>
+
+            <p>
+                Sneaker Hub brings together premium everyday sneakers
+                designed for comfort, confidence and modern street style.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FEATURES
+    ========================== -->
+
+    <section class="about-features">
+
+        <div class="about-container">
+
+            <div class="about-features-grid">
+
+                <!-- CARD 01 -->
+
+                <div class="about-card">
+
+                    <span class="about-number">
+                        01
+                    </span>
+
+                    <h2>
+                        Premium Style
+                    </h2>
+
+                    <p>
+                        Clean designs made to fit everyday looks,
+                        from casual streets to active days.
+                    </p>
+
+                </div>
+
+
+                <!-- CARD 02 -->
+
+                <div class="about-card">
+
+                    <span class="about-number">
+                        02
+                    </span>
+
+                    <h2>
+                        Built to Move
+                    </h2>
+
+                    <p>
+                        Comfortable sneakers designed around
+                        movement and everyday performance.
+                    </p>
+
+                </div>
+
+
+                <!-- CARD 03 -->
+
+                <div class="about-card">
+
+                    <span class="about-number">
+                        03
+                    </span>
+
+                    <h2>
+                        Simple. Better.
+                    </h2>
+
+                    <p>
+                        We believe great footwear doesn't need
+                        complicated design to stand out.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         OUR STORY
+    ========================== -->
+
+    <section class="about-story">
+
+        <div class="about-container">
+
+            <div class="story-content">
+
+                <span class="about-label">
+                    OUR STORY
+                </span>
+
+                <h2>
+                    More than just
+                    <br>
+                    another sneaker store.
+                </h2>
+
+                <p>
+                    Sneaker Hub was created around a simple idea:
+                    finding a great pair of sneakers should feel easy.
+                    Our collection focuses on modern silhouettes,
+                    bold character and everyday comfort.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CTA
+    ========================== -->
+
+    <section class="about-cta">
+
+        <div class="about-container">
+
+            <div class="cta-box">
+
+                <span class="about-label">
+                    READY TO FIND YOUR PAIR?
+                </span>
+
+                <h2>
+                    Step into something
+                    <br>
+                    different.
+                </h2>
+
+                <a
+                    href="{{ url_for('products') }}"
+                    class="about-cta-btn"
+                >
+                    Explore Sneakers →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

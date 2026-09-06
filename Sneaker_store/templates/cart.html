@@ -1,0 +1,426 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sneaker Hub | Shopping Cart
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .cart-page {
+        padding: 70px 0;
+        background: #080B14;
+        min-height: 80vh;
+    }
+
+    .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        margin-bottom: 45px;
+    }
+
+    .cart-header span {
+        color: #FF7200;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 5px;
+    }
+
+    .cart-header h1 {
+        color: #F8FAFC;
+        font-size: 56px;
+        font-weight: 900;
+        margin: 12px 0 8px;
+    }
+
+    .cart-header p {
+        color: #94A3B8;
+        font-size: 17px;
+        margin: 0;
+    }
+
+    .cart-clear-btn {
+        background: transparent;
+        border: 1px solid #FF7200;
+        color: #FF7200;
+        padding: 12px 22px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: 0.3s;
+    }
+
+    .cart-clear-btn:hover {
+        background: #FF7200;
+        color: white;
+    }
+
+    .cart-product-list {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .cart-product {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        background: #111827;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        padding: 18px;
+        min-height: 150px;
+    }
+
+    .cart-product img {
+        width: 125px !important;
+        height: 115px !important;
+        max-width: 125px !important;
+        object-fit: cover !important;
+        border-radius: 14px;
+        flex-shrink: 0;
+    }
+
+    .cart-product-info {
+        flex: 1;
+    }
+
+    .cart-product-label {
+        color: #FF7200;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 3px;
+        margin-bottom: 8px;
+    }
+
+    .cart-product-info h3 {
+        color: #F8FAFC;
+        font-size: 23px;
+        font-weight: 800;
+        margin: 0 0 7px;
+    }
+
+    .cart-product-info p {
+        color: #94A3B8;
+        margin: 0 0 8px;
+    }
+
+    .cart-quantity {
+        color: #64748B;
+        font-size: 14px;
+    }
+
+    .cart-product-price {
+        text-align: right;
+        min-width: 150px;
+    }
+
+    .cart-product-price span {
+        display: block;
+        color: #FF7200;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 3px;
+        margin-bottom: 5px;
+    }
+
+    .cart-product-price strong {
+        color: #FF7200;
+        font-size: 22px;
+        font-weight: 900;
+    }
+
+    .cart-summary-box {
+        background: #111827;
+        border: 1px solid rgba(255,114,0,0.35);
+        border-radius: 22px;
+        padding: 30px;
+        position: sticky;
+        top: 100px;
+    }
+
+    .cart-summary-box > span {
+        color: #FF7200;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 4px;
+    }
+
+    .cart-summary-box h2 {
+        color: #F8FAFC;
+        font-size: 30px;
+        font-weight: 800;
+        margin: 12px 0 28px;
+    }
+
+    .cart-line {
+        display: flex;
+        justify-content: space-between;
+        color: #94A3B8;
+        margin: 15px 0;
+        font-size: 16px;
+    }
+
+    .cart-line strong {
+        color: #F8FAFC;
+    }
+
+    .cart-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 25px;
+        padding-top: 22px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .cart-total span {
+        color: #F8FAFC;
+        font-size: 20px;
+        font-weight: 800;
+    }
+
+    .cart-total strong {
+        color: #FF7200;
+        font-size: 25px;
+        font-weight: 900;
+    }
+
+    .cart-checkout-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        background: #FF7200;
+        color: white;
+        padding: 16px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 800;
+        margin-top: 25px;
+        transition: 0.3s;
+    }
+
+    .cart-checkout-btn:hover {
+        background: #E85F00;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .cart-continue {
+        display: block;
+        text-align: center;
+        color: #94A3B8;
+        text-decoration: none;
+        margin-top: 18px;
+        font-size: 14px;
+    }
+
+    .cart-continue:hover {
+        color: #FF7200;
+    }
+
+    .empty-cart-box {
+        text-align: center;
+        padding: 100px 20px;
+        background: #111827;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 22px;
+    }
+
+    .empty-cart-box .icon {
+        font-size: 55px;
+        margin-bottom: 20px;
+    }
+
+    .empty-cart-box h2 {
+        color: #F8FAFC;
+        font-weight: 800;
+    }
+
+    .empty-cart-box p {
+        color: #94A3B8;
+        margin-bottom: 25px;
+    }
+
+    @media (max-width: 768px) {
+        .cart-header {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .cart-header h1 {
+            font-size: 40px;
+        }
+
+        .cart-product {
+            flex-wrap: wrap;
+        }
+
+        .cart-product-price {
+            width: 100%;
+            text-align: left;
+        }
+    }
+</style>
+
+<div class="cart-page">
+
+    <div class="container">
+
+        <div class="cart-header">
+
+            <div>
+                <span>YOUR SELECTION</span>
+
+                <h1>Shopping Cart.</h1>
+
+                <p>
+                    Review your sneakers before completing your order.
+                </p>
+            </div>
+
+            {% if cart_items %}
+            <a
+                href="{{ url_for('clear_cart') }}"
+                class="cart-clear-btn"
+            >
+                Clear Cart
+            </a>
+            {% endif %}
+
+        </div>
+
+
+        {% if cart_items %}
+
+        <div class="row g-4">
+
+            <div class="col-lg-8">
+
+                <div class="cart-product-list">
+
+                    {% for item in cart_items %}
+
+                    <div class="cart-product">
+
+                        <img
+                            src="{{ url_for('static', filename='images/' + item.image) }}"
+                            alt="{{ item.name }}"
+                        >
+
+                        <div class="cart-product-info">
+
+                            <div class="cart-product-label">
+                                SNEAKER {{ "%02d" | format(loop.index) }}
+                            </div>
+
+                            <h3>
+                                {{ item.name }}
+                            </h3>
+
+                            <p>
+                                Premium everyday sneaker
+                            </p>
+
+                            <div class="cart-quantity">
+                                Quantity: {{ item.quantity }}
+                            </div>
+
+                        </div>
+
+                        <div class="cart-product-price">
+
+                            <span>PRICE</span>
+
+                            <strong>
+                                Rs. {{ "{:,}".format(item.price * item.quantity) }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4">
+
+                <div class="cart-summary-box">
+
+                    <span>ORDER SUMMARY</span>
+
+                    <h2>Your Order</h2>
+
+                    <div class="cart-line">
+                        <span>Items</span>
+                        <strong>{{ cart_items|length }}</strong>
+                    </div>
+
+                    <div class="cart-line">
+                        <span>Delivery</span>
+                        <strong>FREE</strong>
+                    </div>
+
+                    <div class="cart-total">
+                        <span>Total</span>
+
+                        <strong>
+                            Rs. {{ "{:,}".format(total) }}
+                        </strong>
+                    </div>
+
+                    <a
+                        href="{{ url_for('checkout') }}"
+                        class="cart-checkout-btn"
+                    >
+                        Proceed to Checkout →
+                    </a>
+
+                    <a
+                        href="{{ url_for('products') }}"
+                        class="cart-continue"
+                    >
+                        ← Continue Shopping
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-cart-box">
+
+            <div class="icon">🛒</div>
+
+            <h2>Your cart is empty</h2>
+
+            <p>
+                Looks like you haven't added any sneakers yet.
+            </p>
+
+            <a
+                href="{{ url_for('products') }}"
+                class="cart-checkout-btn"
+                style="max-width:260px; margin:0 auto;"
+            >
+                Explore Sneakers →
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
